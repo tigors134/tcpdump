@@ -46,6 +46,7 @@ build_script:
   #
   - type NUL >.devel
   - cat .appveyor.yml
+  - copy diff.exe c:\windows\system32
   - md build
   - cd build
   - cmake -DPCAP_ROOT=c:\projects\libpcap\Win32\%SDK% -G"%GENERATOR%" ..

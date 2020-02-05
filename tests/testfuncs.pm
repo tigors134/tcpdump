@@ -16,7 +16,7 @@ sub runtest {
     my $errdiffstat = 0;
     
     if ($^O eq 'MSWin32') {
-        $r = system "..\\windump -# -n -r $input $options 2>NUL | sed 's/\\r//' | tee tests/NEW/$outputbase | diff $output - >tests/DIFF/$outputbase.diff";
+        $r = system "..\\windump -# -n -r $input $options 2>${rawstderrlog} | sed 's/\\r//' > tests/NEW/$outputbase";
         # need to do same as below for Cygwin.
     }
     else {

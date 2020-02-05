@@ -10,6 +10,8 @@ install:
   - 7z x .\WpdPack_4_1_2.zip -oc:\projects\libpcap\Win32
   - appveyor DownloadFile https://nmap.org/npcap/dist/npcap-sdk-0.1.zip
   - 7z x .\npcap-sdk-0.1.zip -oc:\projects\libpcap\Win32
+  - appveyor DownloadFile http://unxutils.sourceforge.net/UnxUpdates.zip
+  - 7z x .\UnxUpdates.zip -aos -oc:\windows\system32
 
 environment:
   matrix:
@@ -43,7 +45,9 @@ build_script:
   # Appveyor defaults to cmd.exe, so use cmd.exe syntax.
   #
   - type NUL >.devel
+  - cat .appveyor.yml
   - md build
   - cd build
   - cmake -DPCAP_ROOT=c:\projects\libpcap\Win32\%SDK% -G"%GENERATOR%" ..
   - msbuild /m /nologo /p:Configuration=Release tcpdump.sln
+  - msbuild /nologo /p:Configuration=Release check.vcxproj
